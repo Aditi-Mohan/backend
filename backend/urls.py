@@ -16,14 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from rest_framework import routers
-from todo import views
+from countrydata import views
 from django.conf.urls import include
 
 router = routers.DefaultRouter()
-router.register(r'todos', views.TodoView, 'todo')
-
+router.register(r'confirmed', views.ConfirmedView, 'confirmed')
+router.register(r'deaths', views.DeathView, 'deaths')
+router.register(r'recoveries', views.RecoveryView, 'recoveries')
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('countrydata/', include("countrydata.urls"), name='countrydata'),
     path('api/', include(router.urls)),
 ]
