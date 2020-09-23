@@ -7,7 +7,8 @@ class Confirmed(models.Model):
     country = models.TextField(primary_key=True)
     startdate = models.TextField(db_column='startDate', blank=True, null=True)
     enddate = models.TextField(db_column='endDate', blank=True, null=True)
-    counts = models.TextField(db_column='counts', blank=True, null=True)
+    counts = models.TextField(blank=True, null=True)
+    total = models.BigIntegerField(blank=True, null=True)
 
     def __str__(self):
         return self.country
@@ -20,7 +21,8 @@ class Recovery(models.Model):
     country = models.TextField(primary_key=True)
     startdate = models.TextField(db_column='startDate', blank=True, null=True)
     enddate = models.TextField(db_column='endDate', blank=True, null=True)
-    counts = models.TextField(db_column='counts', blank=True, null=True)
+    counts = models.TextField(blank=True, null=True)
+    total = models.BigIntegerField(blank=True, null=True)
 
     def __str__(self):
         return self.country
@@ -33,7 +35,8 @@ class Death(models.Model):
     country = models.TextField(primary_key=True)
     startdate = models.TextField(db_column='startDate', blank=True, null=True)
     enddate = models.TextField(db_column='endDate', blank=True, null=True)
-    counts = models.TextField(db_column='counts', blank=True, null=True)
+    counts = models.TextField(blank=True, null=True)
+    total = models.BigIntegerField(blank=True, null=True)
 
     def __str__(self):
         return self.country
@@ -50,6 +53,7 @@ def initialise_table(url, name):
     start_dates = []
     end_dates = []
     counts = []
+    totals = []
     for i in range(len(df)):
         country = df.loc[i]['Country']
         if country in countries:
@@ -57,15 +61,17 @@ def initialise_table(url, name):
         start_date = df.loc[i][1:].keys()[0]
         end_date = df.loc[i][1:].keys()[-1]
         count = df[df['Country'] == country][df.columns[1:]].sum().values.tolist()
+        total = count[-1]
         countries.append(country)
         start_dates.append(start_date)
         end_dates.append(end_date)
+        totals.append(total)
         count_str = str(count[0])
         for each in count[1:]:
             count_str +=','+str(each)
         counts.append(count_str)
-    df = pd.DataFrame({'country': countries, 'startDate': start_dates, 'endDate': end_dates, 'counts': counts})
+    df = pd.DataFrame({'country': countries, 'startDate': start_dates, 'endDate': end_dates, 'counts': counts, 'total': totals})
     engine = create_engine('postgresql://postgres:popo1234@localhost:5432/test')
     table = df.to_sql(name, engine, if_exists='replace', index=False)
     with connection.cursor() as cursor:
-        cursor.execute("ALTER TABLE %s ADD PRIMARY KEY (country);", [name])
+        cursor.execute("ALTER TABLE "+name+" ADD PRIMARY KEY (country);")
