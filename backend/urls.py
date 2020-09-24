@@ -20,9 +20,7 @@ from countrydata import views
 from django.conf.urls import include
 
 router = routers.DefaultRouter()
-router.register(r'confirmed', views.ConfirmedView, 'confirmed')
-router.register(r'deaths', views.DeathView, 'deaths')
-router.register(r'recoveries', views.RecoveryView, 'recoveries')
+router.register(r'data', views.DataView, 'dataview')
 
 urlpatterns = [
     path('countrydata/', include("countrydata.urls"), name='countrydata'),
