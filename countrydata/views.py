@@ -13,3 +13,7 @@ def index(request):
 class DataView(viewsets.ModelViewSet):
     serializer_class = DataSerializer
     queryset = Data.objects.all()
+
+class Top5View(viewsets.ModelViewSet):
+    serializer_class = DataSerializer
+    queryset = Data.objects.all()[:5]
