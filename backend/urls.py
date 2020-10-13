@@ -22,6 +22,7 @@ from django.conf.urls import include
 router = routers.DefaultRouter()
 router.register(r'data', views.DataView, 'dataview')
 router.register(r'top5', views.Top5View, 'top5view')
+router.register(r'subscriber', views.SubscriberView, 'subscriberview')
 
 urlpatterns = [
     path('countrydata/', include("countrydata.urls"), name='countrydata'),

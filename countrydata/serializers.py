@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Data
+from .models import Data, Subscriber
 
 class DataSerializer(serializers.ModelSerializer):
     country = serializers.CharField()
@@ -22,3 +22,14 @@ class DataSerializer(serializers.ModelSerializer):
             'death', 'currdeath', 'recovery', 'currrecovery', 'active', 'curractive', 'rank'
             )
 
+class SubscriberSerializer(serializers.ModelSerializer):
+    uid = serializers.IntegerField()
+    email = serializers.CharField()
+    watchlist = serializers.CharField()
+    top5 = serializers.BooleanField()
+
+    class Meta:
+        model = Subscriber
+        fields = (
+            'uid', 'email', 'watchlist', 'top5'
+        )

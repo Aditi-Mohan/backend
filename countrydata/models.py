@@ -1,5 +1,6 @@
 from django.db import models, connection
 from sqlalchemy import create_engine, types
+from django.contrib.postgres.fields import ArrayField
 import pandas as pd
 
 # Create your models here.
@@ -20,6 +21,16 @@ class Data(models.Model):
     class Meta:
         managed = False
         db_table = 'data'
+
+class Subscriber(models.Model):
+    uid = models.AutoField(primary_key=True)
+    email = models.TextField(blank=True, null=True)
+    watchlist = models.TextField(blank=True, null=True)
+    top5 = models.BooleanField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'subscriber'
 
 def process_df(df, name):
     df.drop(['Province/State', 'Lat', 'Long'], axis=1, inplace=True)
