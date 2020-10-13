@@ -47,7 +47,7 @@ def combine_into_single_df(conf, death, rec, active):
 
 def get_ranks(df):
     df = df.sort_values('CurrActive', ascending=False)
-    df['Rank'] = range(1,189)
+    df['Rank'] = range(1,len(df)+1)
     return df
 
 def make_table(df):

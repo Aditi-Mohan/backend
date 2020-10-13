@@ -26,4 +26,5 @@ router.register(r'top5', views.Top5View, 'top5view')
 urlpatterns = [
     path('countrydata/', include("countrydata.urls"), name='countrydata'),
     path('api/', include(router.urls)),
+    path('email_verification/<str:email>', views.verify_email)
 ]
