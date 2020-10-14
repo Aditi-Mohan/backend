@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from rest_framework import viewsets
-from .functions import verify, send_email_to_sub
+from .functions import verify, send_email_to_sub, update_date
 from .models import Data, initialize, Subscriber
 from .serializers import DataSerializer, SubscriberSerializer
 import pandas as pd
@@ -9,7 +9,8 @@ from rest_framework.response import Response
 
 
 def index(request):
-    initialize()
+    update_date()
+    # initialize()
     return HttpResponse('success')
 
 def verify_email(request, email):

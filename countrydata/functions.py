@@ -1,10 +1,11 @@
 import random
 import string
 import smtplib
+from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-from .models import Subscriber, Data
+from .models import Subscriber, Data, Sentdate
 
 def get_random_string(length):
     letters = string.ascii_lowercase
@@ -174,3 +175,14 @@ def py_mail(SUBJECT, BODY, TO, FROM):
     server.login(FROM, password)
     server.sendmail(FROM, [TO], MESSAGE.as_string())
     server.quit()
+
+def update_date():
+    date = Sentdate.objects.all()[0]
+    date_object = datetime.strptime(date.date, f'%d-%m-%Y').date()
+    if date_object == datetime.now().date():
+        pass
+    else:
+        print('call function here')
+        date.date = datetime.now().strftime(f"%d-%m-%Y")
+        date.save()
+        print(Sentdate.objects.all()[0].date)

@@ -32,6 +32,14 @@ class Subscriber(models.Model):
         managed = False
         db_table = 'subscriber'
 
+class Sentdate(models.Model):
+    id = models.IntegerField(primary_key=True)
+    date = models.TextField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'sentdate'
+
 def process_df(df, name):
     df.drop(['Province/State', 'Lat', 'Long'], axis=1, inplace=True)
     df.rename(columns = {'Country/Region': 'Country'}, inplace=True)
