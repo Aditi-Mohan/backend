@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Data, Subscriber, Sentdate
+from .models import Data, Subscriber, Sentdate, Messages
 
 class DataSerializer(serializers.ModelSerializer):
     country = serializers.CharField()
@@ -41,3 +41,12 @@ class SentdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sentdate
         fields = ('id', 'date')
+
+class MessagesSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField()
+    msg = serializers.CharField()
+    bg = serializers.CharField()
+
+    class Meta:
+        model = Messages
+        fields = ('id', 'msg', 'bg')

@@ -8,7 +8,12 @@ scheduler = BackgroundScheduler()
 scheduler.start()
 
 def update_scheduler():
-    scheduler.add_job(schedule, 'date', run_date=datetime.now()+timedelta(seconds=30))
+    scheduler.add_job(schedule, 'date', run_date=datetime.now()+timedelta(days=1))
+    date = Sentdate.objects.all()[0]
+    date.date = datetime.now().strftime(f"%d-%m-%Y")
+    date.save()
+
+
 
 def schedule():
     initialize()

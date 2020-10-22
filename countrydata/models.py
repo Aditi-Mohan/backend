@@ -40,6 +40,15 @@ class Sentdate(models.Model):
         managed = False
         db_table = 'sentdate'
 
+class Messages(models.Model):
+    id = models.IntegerField(primary_key=True)
+    msg = models.TextField(blank=True, null=True)
+    bg = models.TextField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'messages'
+
 def process_df(df, name):
     df.drop(['Province/State', 'Lat', 'Long'], axis=1, inplace=True)
     df.rename(columns = {'Country/Region': 'Country'}, inplace=True)

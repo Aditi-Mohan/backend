@@ -23,6 +23,7 @@ router = routers.DefaultRouter()
 router.register(r'data', views.DataView, 'dataview')
 router.register(r'top5', views.Top5View, 'top5view')
 router.register(r'subscriber', views.SubscriberView, 'subscriberview')
+router.register(r'messages', views.MessagesView, 'messagesview')
 
 urlpatterns = [
     path('countrydata/', include("countrydata.urls"), name='countrydata'),

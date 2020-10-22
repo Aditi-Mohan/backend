@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from rest_framework import viewsets
 from .functions import verify, send_email_to_sub, update_date
-from .models import Data, initialize, Subscriber
-from .serializers import DataSerializer, SubscriberSerializer
+from .models import Data, initialize, Subscriber, Messages
+from .serializers import DataSerializer, SubscriberSerializer, MessagesSerializer
 import pandas as pd
 from rest_framework.response import Response
 
@@ -35,5 +35,9 @@ class Top5View(viewsets.ModelViewSet):
     queryset = Data.objects.all()[:5]
 
 class SubscriberView(viewsets.ModelViewSet):
-    queryset=Subscriber.objects.all()
+    queryset = Subscriber.objects.all()
     serializer_class = SubscriberSerializer
+
+class MessagesView(viewsets.ModelViewSet):
+    queryset = Messages.objects.all()
+    serializer_class = MessagesSerializer
